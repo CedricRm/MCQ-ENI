@@ -3,7 +3,7 @@ import { FC } from 'react'
 const Home: FC = () => {
     return (
         <div>
-            <p>I'm fine, my Lord !</p>
+            <p className="text-blue">I'm fine, my Lord!</p>
         </div>
     )
 }
