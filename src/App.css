@@ -2,6 +2,22 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+    font-family: 'Gilroy';
+    src: url('/assets/font/Gilroy-ExtraBold.ttf');
+}
+
+@font-face {
+    font-family: 'Monolisa';
+    src: url('/assets/font/Monolisa.ttf');
+}
+
+@font-face {
+    font-family: 'Margem';
+    src: url('/assets/font/Margem-Medium.otf');
+}
+
+/* 
 #root {
     max-width: 1280px;
     margin: 0 auto;
@@ -43,4 +59,4 @@
 
 .read-the-docs {
     color: #888;
-}
+} */
