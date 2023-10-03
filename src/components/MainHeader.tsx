@@ -9,7 +9,7 @@ const MainHeader: FC = () => {
     }
     return (
         <div className="relative z-[99]">
-            <nav className="bg-primaryDark-background px-8 py-2.5 text-white">
+            <nav className="bg-primaryDark-background py-2.5 text-white">
                 <div className="relative flex h-16 justify-between">
                     <div className="flex flex-auto items-center gap-2 py-6 font-Gilroy">
                         <div className="relative h-8 w-4 overflow-hidden bg-[#6e7cd2]"></div>
@@ -31,7 +31,7 @@ const MainHeader: FC = () => {
                     </div>
                     <div className="flex flex-auto items-center justify-end">
                         <div
-                            className="cursor-pointer rounded-xl bg-[#F03273] px-6 py-2.5"
+                            className="cursor-pointer rounded-xl bg-[#ff2b69] px-6 py-2.5"
                             onClick={handleLogin}
                         >
                             <p>Log In</p>

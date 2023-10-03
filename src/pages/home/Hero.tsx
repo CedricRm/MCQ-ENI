@@ -3,7 +3,7 @@ import { motion } from 'framer-motion'
 
 const Hero: FC = () => {
     return (
-        <div className="relative z-50 -mt-16 flex h-full items-center justify-between gap-16 px-9">
+        <div className="relative z-50 -mt-16 flex h-full items-center justify-between gap-16">
             <div className="relative flex flex-col gap-6">
                 <p className="z-50 text-5xl font-semibold text-white">
                     Test en ligne rendu{' '}
@@ -16,10 +16,11 @@ const Hero: FC = () => {
                     sint doloremque facere dicta, consequatur quas voluptate!
                 </p>
                 <div className="flex gap-4">
-                    <button className="w-40 rounded-xl bg-yellow py-3 font-Gilroy">
+                    <button className="w-40 rounded-xl bg-[#6e7cd2] py-3 font-Gilroy">
                         Start now
                     </button>
-                    <div className="rounded-xl border-2 border-yellow border-opacity-40 px-6 py-3 font-Gilroy text-yellow hover:bg-yellow hover:text-black">
+                    <div className="flex gap-2 rounded-xl border-2 border-[#6e7cd2] border-opacity-40 px-6 py-3 font-Gilroy text-[#6e7cd2] hover:bg-[#6e7cd2] hover:text-black">
+                        <img src="./assets/icons/ic_play.png" className="w-6" />
                         <p>Demander un démo</p>
                     </div>
                 </div>

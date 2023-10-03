@@ -5,7 +5,7 @@ import CircleForms from './CircleForms'
 
 const Home: FC = () => {
     return (
-        <div className="bg-primaryDark-background">
+        <div className="bg-primaryDark-background px-8">
             <div className="relative h-[100vh] overflow-hidden">
                 <MainHeader />
                 <Hero />

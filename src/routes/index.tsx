@@ -20,9 +20,15 @@ export default function Router() {
                     element: <Home />,
                     index: true,
                 },
+                {
+                    path: 'login',
+                    element: <Login />,
+                },
             ],
         },
     ])
 }
 
-const Home = Loadable(lazy(() => import('../pages/home/Home')))
+// Pages
+const Home = Loadable(lazy(() => import('../pages/home')))
+const Login = Loadable(lazy(() => import('../pages/login')))
