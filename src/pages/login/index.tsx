@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import CircleForms from '../home/CircleForms'
+import CircleForms from '../../components/CircleForms'
 import LoginSection from './LoginSection'
 import Header from './Header'
 

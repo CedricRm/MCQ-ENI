@@ -42,7 +42,7 @@ export default {
         stroke: '#8591B9',
       },
       secondaryDark: {
-        background: '#1A2342',
+        background: '#1e1f28',
         color: '#FFFFFF',
       },
       tertiary: {

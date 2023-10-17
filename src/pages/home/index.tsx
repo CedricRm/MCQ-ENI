@@ -1,7 +1,7 @@
 import { FC } from 'react'
 import MainHeader from '../../components/MainHeader'
 import Hero from './Hero'
-import CircleForms from './CircleForms'
+import CircleForms from '../../components/CircleForms'
 
 const Home: FC = () => {
     return (

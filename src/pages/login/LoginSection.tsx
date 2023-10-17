@@ -1,6 +1,13 @@
 import { FC } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 const LoginSection: FC = () => {
+    const navigate = useNavigate()
+
+    const handleLogin = () => {
+        navigate('/student')
+    }
+
     return (
         <div className="flex h-full items-center justify-center text-white">
             <div className="relative z-50 flex h-[40rem] w-[30rem] flex-col overflow-hidden rounded-xl bg-primaryDark-background px-6">
@@ -32,7 +39,10 @@ const LoginSection: FC = () => {
                         className="mt-2 h-10 w-60 rounded-md border-2 border-white border-opacity-20 bg-primaryDark-background px-2"
                     />
                     <div className="mt-8 flex items-center">
-                        <div className="w-60 cursor-pointer rounded-xl bg-[#ff2b69] px-6 py-2.5 text-center">
+                        <div
+                            className="w-60 cursor-pointer rounded-xl bg-[#ff2b69] px-6 py-2.5 text-center"
+                            onClick={handleLogin}
+                        >
                             <p>Connexion</p>
                         </div>
                     </div>
