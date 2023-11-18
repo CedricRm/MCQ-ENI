@@ -10,7 +10,7 @@ const Header: FC = () => {
             onClick={handleRedirect}
         >
             <img
-                src="./assets/icons/ic_left_arrow.png"
+                src="/assets/icons/ic_left_arrow.png"
                 alt="Developer"
                 className="z-40 w-10"
             />

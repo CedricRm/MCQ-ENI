@@ -1,6 +1,6 @@
 import { FC } from 'react'
-import LeftCircleForms from '../../components/LeftCircleForms'
 import { useNavigate } from 'react-router-dom'
+import LittleCircleForms from './LittleCircleForms'
 
 const Sidebar: FC = () => {
     const navigate = useNavigate()
@@ -23,17 +23,17 @@ const Sidebar: FC = () => {
             </div>
             <ul>
                 <li className="hover:bg-gray-700 px-4 py-2">Mon dashboard</li>
-                <li className="hover:bg-gray-700 px-4 py-2">Mes matières</li>
+                <li className="hover:bg-gray-700 px-4 py-2">Mes tests</li>
             </ul>
             <div className="absolute bottom-0 flex cursor-pointer items-center px-4 py-8">
                 <img
-                    src="./assets/icons/ic_logout.png"
+                    src="/assets/icons/ic_logout.png"
                     alt="Log Out"
                     className="h-8 w-8"
                 />
                 <p>Se déconnecter</p>
             </div>
-            <LeftCircleForms />
+            <LittleCircleForms className="absolute -left-[6rem] top-[20rem] z-10 flex justify-center" />
         </div>
     )
 }

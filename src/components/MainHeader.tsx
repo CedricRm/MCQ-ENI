@@ -34,7 +34,7 @@ const MainHeader: FC = () => {
                             className="cursor-pointer rounded-xl bg-[#ff2b69] px-6 py-2.5"
                             onClick={handleLogin}
                         >
-                            <p>Log In</p>
+                            <p>Se connecter</p>
                         </div>
                     </div>
                 </div>

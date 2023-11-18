@@ -1,7 +1,7 @@
 import { FC } from 'react'
-import RightCircleForms from '../../components/RightCircleForms'
 import Tutorial from './Tutorial'
 import SubjectsSection from './SubjectsSection'
+import LittleCircleForms from '../../components/LittleCircleForms'
 
 const Dashboard: FC = () => {
     return (
@@ -17,13 +17,12 @@ const Dashboard: FC = () => {
                 </p>
                 <p className="mt-1.5">
                     Ici, vous pouvez voir la liste des tests qui sont
-                    disponibles par matière avec les temps imparties pour chacun
-                    d'eux
+                    disponibles avec les temps imparties pour chacun d'eux
                 </p>
             </div>
             <Tutorial />
             <SubjectsSection />
-            <RightCircleForms />
+            <LittleCircleForms className="absolute -right-[82rem] bottom-0 left-0 z-10 flex justify-center" />
         </div>
     )
 }

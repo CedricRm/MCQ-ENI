@@ -6,7 +6,7 @@ const SubjectsSection: FC = () => {
     return (
         <div className="flex w-full gap-16">
             <div className="flex-1">
-                <p className="text-md">Matières disponibles :</p>
+                <p className="text-md">Tests disponibles :</p>
                 <SubjetsList />
             </div>
             <div className="flex-1">

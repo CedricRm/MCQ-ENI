@@ -11,9 +11,6 @@ const Home: FC = () => {
                 <Hero />
                 <CircleForms />
             </div>
-            {/* <div className="h-60 bg-orange">
-                <p>Coucou</p>
-            </div> */}
         </div>
     )
 }

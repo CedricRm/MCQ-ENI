@@ -49,7 +49,7 @@ const LoginSection: FC = () => {
                 </div>
                 <div className="absolute bottom-4 right-0">
                     <img
-                        src="./assets/img/img_3d_flame_rocket.png"
+                        src="/assets/img/img_3d_flame_rocket.png"
                         alt="Developer"
                         className="z-40 w-48"
                     />

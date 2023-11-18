@@ -15,4 +15,10 @@ module.exports = {
             { allowConstantExport: true },
         ],
     },
+    parserOptions: {
+        // ...
+        ecmaFeatures: {
+          jsx: true,
+        },
+    },
 }

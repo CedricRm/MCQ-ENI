@@ -17,10 +17,10 @@ const Hero: FC = () => {
                 </p>
                 <div className="flex gap-4">
                     <button className="w-40 rounded-xl bg-[#6e7cd2] py-3 font-Gilroy">
-                        Start now
+                        Démarrer
                     </button>
                     <div className="flex gap-2 rounded-xl border-2 border-[#6e7cd2] border-opacity-40 px-6 py-3 font-Gilroy text-[#6e7cd2] hover:bg-[#6e7cd2] hover:text-black">
-                        <img src="./assets/icons/ic_play.png" className="w-6" />
+                        <img src="/assets/icons/ic_play.png" className="w-6" />
                         <p>Demander un démo</p>
                     </div>
                 </div>
@@ -37,7 +37,7 @@ const Hero: FC = () => {
                 }}
             >
                 <img
-                    src="./assets/img/img_developer_script.png"
+                    src="/assets/img/img_developer_script.png"
                     alt="Developer"
                     className="z-40 w-[60rem]"
                 />

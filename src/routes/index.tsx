@@ -26,7 +26,16 @@ export default function Router() {
                 },
                 {
                     path: 'student',
-                    element: <Student />,
+                    children: [
+                        {
+                            index: true,
+                            element: <Student />,
+                        },
+                        {
+                            path: 'test',
+                            element: <Test />,
+                        },
+                    ],
                 },
             ],
         },
@@ -37,3 +46,4 @@ export default function Router() {
 const Home = Loadable(lazy(() => import('../pages/home')))
 const Login = Loadable(lazy(() => import('../pages/login')))
 const Student = Loadable(lazy(() => import('../pages/student')))
+const Test = Loadable(lazy(() => import('../pages/test')))
