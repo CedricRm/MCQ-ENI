@@ -1,14 +1,12 @@
 import { FC } from 'react'
-import { useNavigate } from 'react-router-dom'
 
-const MainHeader: FC = () => {
-    const navigate = useNavigate()
+interface HeaderInterface {
+    handleLoginModal: () => void
+}
 
-    const handleLogin = () => {
-        navigate('/login')
-    }
+const MainHeader: FC<HeaderInterface> = ({ handleLoginModal }) => {
     return (
-        <div className="relative z-[99]">
+        <div className="relative z-[51]">
             <nav className="bg-primaryDark-background py-2.5 text-white">
                 <div className="relative flex h-16 justify-between">
                     <div className="flex flex-auto items-center gap-2 py-6 font-Gilroy">
@@ -18,21 +16,10 @@ const MainHeader: FC = () => {
                             <span className="text-white">Quiz</span>
                         </p>
                     </div>
-                    <div className="text-md flex flex-auto items-center justify-center gap-4">
-                        <div className="p-2.5">
-                            <a href="#">Accueil</a>
-                        </div>
-                        <div className="p-2.5">
-                            <a href="#">Pour les eleves</a>
-                        </div>
-                        <div className="p-2.5">
-                            <a href="#">Pour les enseignants</a>
-                        </div>
-                    </div>
                     <div className="flex flex-auto items-center justify-end">
                         <div
-                            className="cursor-pointer rounded-xl bg-[#ff2b69] px-6 py-2.5"
-                            onClick={handleLogin}
+                            className="cursor-pointer rounded-xl bg-red px-6 py-2.5"
+                            onClick={handleLoginModal}
                         >
                             <p>Se connecter</p>
                         </div>
