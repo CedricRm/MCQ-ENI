@@ -1,6 +1,6 @@
 import { FC, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import Sidebar from '../../components/Sidebar'
+import Sidebar from '../student/Sidebar'
 import Header from './Header'
 import Introduction from './Introduction'
 import Stepper from './Stepper'

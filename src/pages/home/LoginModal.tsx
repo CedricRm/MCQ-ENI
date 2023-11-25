@@ -9,7 +9,7 @@ const LoginModal: FC<LoginInterface> = ({ handleLoginModal }) => {
     const navigate = useNavigate()
 
     const handleLogin = () => {
-        navigate('/student')
+        navigate('/admin')
     }
     return (
         <div className="fixed left-0 right-0 top-0 z-[52] h-[calc(100%-1rem)] max-h-full w-full items-center justify-center overflow-y-auto overflow-x-hidden bg-black bg-opacity-80 md:inset-0">

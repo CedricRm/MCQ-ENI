@@ -1,6 +1,6 @@
 import { FC } from 'react'
 import { useNavigate } from 'react-router-dom'
-import LittleCircleForms from './LittleCircleForms'
+import LittleCircleForms from '../../components/LittleCircleForms'
 
 const Sidebar: FC = () => {
     const navigate = useNavigate()

@@ -1,6 +1,6 @@
 import { FC } from 'react'
-import Dashboard from './Dashboard'
 import Sidebar from './Sidebar'
+import Dashboard from './Dashboard'
 
 const index: FC = () => {
     return (
