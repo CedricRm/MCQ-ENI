@@ -1,16 +1,25 @@
-import { FC } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { FC, FormEvent } from 'react'
+import { AnimatePresence, motion } from 'framer-motion'
+import useAuthUser from '../../hooks/auth/useAuthUser'
+import Spinner from '../../components/Spinner'
 
 interface LoginInterface {
     handleLoginModal: () => void
 }
 
 const LoginModal: FC<LoginInterface> = ({ handleLoginModal }) => {
-    const navigate = useNavigate()
+    const { logIn, isLoggingIn, loginError } = useAuthUser()
 
-    const handleLogin = () => {
-        navigate('/admin')
+    const handleLogin = async (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
+
+        const formData = new FormData(e.currentTarget)
+        const email = formData.get('email') as string
+        const password = formData.get('password') as string
+
+        await logIn(email, password)
     }
+
     return (
         <div className="fixed left-0 right-0 top-0 z-[52] h-[calc(100%-1rem)] max-h-full w-full items-center justify-center overflow-y-auto overflow-x-hidden bg-black bg-opacity-80 md:inset-0">
             <div className="flex h-full items-center justify-center text-white">
@@ -34,30 +43,57 @@ const LoginModal: FC<LoginInterface> = ({ handleLoginModal }) => {
                     <p className="mt-2 font-Monolisa text-sm">
                         Connecte-toi pour avoir accès à ton interface
                     </p>
-                    <div>
+                    <form onSubmit={(e) => handleLogin(e)}>
                         <p className="font-Marge mt-8 text-sm">
-                            Nom d'utilisateur :
+                            Adresse email :
                         </p>
+                        {loginError != null && (
+                            <AnimatePresence>
+                                <motion.div
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    exit={{ opacity: 0 }}
+                                    transition={{ duration: 0.5 }}
+                                >
+                                    <div className="mt-2 flex items-center gap-2">
+                                        <img
+                                            src="/assets/icons/ic_error.png"
+                                            alt="error"
+                                            className="h-3 w-3"
+                                        />
+                                        <p className="font-Monolisa text-xs text-red">
+                                            {loginError}
+                                        </p>
+                                    </div>
+                                </motion.div>
+                            </AnimatePresence>
+                        )}
                         <input
-                            type="text"
-                            className="mt-2 h-10 w-60 rounded-md border-2 border-white border-opacity-20 bg-primaryDark-background px-2"
+                            type="email"
+                            className={`mt-2 h-10 w-60 rounded-md ${
+                                loginError ? ' border-red' : 'border-white'
+                            } border-2 border-opacity-20 bg-primaryDark-background px-2`}
+                            name="email"
                         />
                         <p className="font-Marge mt-8 text-sm">
                             Mot de passe :
                         </p>
                         <input
-                            type="text"
-                            className="mt-2 h-10 w-60 rounded-md border-2 border-white border-opacity-20 bg-primaryDark-background px-2"
+                            type="password"
+                            className={`mt-2 h-10 w-60 rounded-md ${
+                                loginError ? ' border-red' : 'border-white'
+                            } border-2 border-opacity-20 bg-primaryDark-background px-2`}
+                            name="password"
                         />
                         <div className="mt-8 flex items-center">
-                            <div
-                                className="w-60 cursor-pointer rounded-xl bg-[#ff2b69] px-6 py-2.5 text-center"
-                                onClick={handleLogin}
+                            <button
+                                className="flex w-60 cursor-pointer items-center justify-center rounded-xl bg-[#ff2b69] px-6 py-2.5"
+                                type="submit"
                             >
-                                <p>Connexion</p>
-                            </div>
+                                {isLoggingIn ? <Spinner /> : <p>Connexion</p>}
+                            </button>
                         </div>
-                    </div>
+                    </form>
                     <div className="absolute bottom-4 right-0">
                         <img
                             src="/assets/img/img_3d_flame_rocket.png"
