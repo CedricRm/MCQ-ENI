@@ -34,6 +34,16 @@ export default function Router() {
                     ],
                 },
                 {
+                    path: 'teacher',
+                    children: [
+                        { index: true, element: <Teacher /> },
+                        {
+                            path: 'tests',
+                            element: <TeacherTests />,
+                        },
+                    ],
+                },
+                {
                     path: 'admin',
                     children: [
                         {
@@ -68,3 +78,6 @@ const Professors = Loadable(
 const Students = Loadable(
     lazy(() => import('../pages/admin/students/Students'))
 )
+// Teacher
+const Teacher = Loadable(lazy(() => import('../pages/teacher')))
+const TeacherTests = Loadable(lazy(() => import('../pages/teacher/tests')))

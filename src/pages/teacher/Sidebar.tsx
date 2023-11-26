@@ -30,18 +30,15 @@ const Sidebar: FC = () => {
                 </li>
                 <li
                     className="hover:bg-gray-700 cursor-pointer px-4 py-2 hover:text-red"
-                    onClick={() => navigate('/admin/professors')}
+                    onClick={() => navigate('/teacher/tests')}
                 >
-                    Professeurs
+                    Mes tests
                 </li>
                 <li
                     className="hover:bg-gray-700 cursor-pointer px-4 py-2 hover:text-red"
                     onClick={() => navigate('/admin/students')}
                 >
-                    Etudiants
-                </li>
-                <li className="hover:bg-gray-700 cursor-pointer px-4 py-2 hover:text-red">
-                    Tests
+                    Mes résultats
                 </li>
             </ul>
             <div className="absolute bottom-0 flex cursor-pointer items-center px-4 py-8 hover:text-red">
