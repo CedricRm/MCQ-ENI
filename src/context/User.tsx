@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Dispatch, ReactNode, createContext, useReducer } from 'react'
+import { user } from '../utils/interfaces'
 
 interface StateInterface {
-    userInfo: object
+    userInfo: user
 }
 
 interface UserContextType {

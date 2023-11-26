@@ -1,5 +1,7 @@
 import { Suspense, lazy } from 'react'
 import { useRoutes } from 'react-router-dom'
+import AuthGard from '../guards/AuthGard'
+import { ADMIN, STUDENT, TEACHER } from '../utils/constants'
 
 const Loadable: <T extends JSX.IntrinsicAttributes>(
     Component: React.ComponentType<T>
@@ -25,21 +27,40 @@ export default function Router() {
                     children: [
                         {
                             index: true,
-                            element: <Student />,
+                            element: (
+                                <AuthGard redirectTo="/" role={STUDENT}>
+                                    <Student />
+                                </AuthGard>
+                            ),
                         },
                         {
                             path: 'test',
-                            element: <Test />,
+                            element: (
+                                <AuthGard redirectTo="/" role={STUDENT}>
+                                    <Test />
+                                </AuthGard>
+                            ),
                         },
                     ],
                 },
                 {
                     path: 'teacher',
                     children: [
-                        { index: true, element: <Teacher /> },
+                        {
+                            index: true,
+                            element: (
+                                <AuthGard redirectTo="/" role={TEACHER}>
+                                    <Teacher />
+                                </AuthGard>
+                            ),
+                        },
                         {
                             path: 'tests',
-                            element: <TeacherTests />,
+                            element: (
+                                <AuthGard redirectTo="/" role={TEACHER}>
+                                    <TeacherTests />
+                                </AuthGard>
+                            ),
                         },
                     ],
                 },
@@ -48,15 +69,27 @@ export default function Router() {
                     children: [
                         {
                             index: true,
-                            element: <Admin />,
+                            element: (
+                                <AuthGard redirectTo="/" role={ADMIN}>
+                                    <Admin />
+                                </AuthGard>
+                            ),
                         },
                         {
                             path: 'professors',
-                            element: <Professors />,
+                            element: (
+                                <AuthGard redirectTo="/" role={ADMIN}>
+                                    <Professors />
+                                </AuthGard>
+                            ),
                         },
                         {
                             path: 'students',
-                            element: <Students />,
+                            element: (
+                                <AuthGard redirectTo="/" role={ADMIN}>
+                                    <Students />
+                                </AuthGard>
+                            ),
                         },
                     ],
                 },

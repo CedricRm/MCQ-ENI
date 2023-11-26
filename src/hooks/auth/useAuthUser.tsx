@@ -50,7 +50,7 @@ const useAuthUser = () => {
         }
     }
 
-    return { logIn, isLoggingIn, loginError }
+    return { logIn, isLoggingIn, loginError, handleRedirectUserByRole }
 }
 
 export default useAuthUser

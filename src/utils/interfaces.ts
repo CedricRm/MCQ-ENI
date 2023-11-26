@@ -5,16 +5,16 @@ export interface question {
 }
 
 export interface user {
-    createdAt: string
-    email: string
-    firstname: string
-    id: number
-    isadmin: boolean
-    lastname: string
-    level: number
+    createdAt?: string
+    email?: string
+    firstname?: string
+    id?: number
+    isadmin?: boolean
+    lastname?: string
+    level?: number
     password?: number
-    phone: number
-    registrationnumber: string
-    role: number
-    slug: string
+    phone?: number
+    registrationnumber?: string
+    role?: number
+    slug?: string
 }
