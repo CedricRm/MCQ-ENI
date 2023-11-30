@@ -13,8 +13,18 @@ export interface user {
     lastname?: string
     level?: number
     password?: number
-    phone?: number
+    phone?: string
     registrationnumber?: string
     role?: number
     slug?: string
+}
+
+export interface modifyUser {
+    firstname?: string
+    lastname?: string
+    registrationnumber?: string
+    phone?: string
+    email?: string
+    level?: number
+    role?: number
 }

@@ -1,7 +1,7 @@
 import { Suspense, lazy } from 'react'
 import { useRoutes } from 'react-router-dom'
 import AuthGard from '../guards/AuthGard'
-import { ADMIN, STUDENT, TEACHER } from '../utils/constants'
+import { ROLE_ADMIN, ROLE_STUDENT, ROLE_TEACHER } from '../utils/constants'
 
 const Loadable: <T extends JSX.IntrinsicAttributes>(
     Component: React.ComponentType<T>
@@ -28,7 +28,7 @@ export default function Router() {
                         {
                             index: true,
                             element: (
-                                <AuthGard redirectTo="/" role={STUDENT}>
+                                <AuthGard redirectTo="/" role={ROLE_STUDENT}>
                                     <Student />
                                 </AuthGard>
                             ),
@@ -36,7 +36,7 @@ export default function Router() {
                         {
                             path: 'test',
                             element: (
-                                <AuthGard redirectTo="/" role={STUDENT}>
+                                <AuthGard redirectTo="/" role={ROLE_STUDENT}>
                                     <Test />
                                 </AuthGard>
                             ),
@@ -49,7 +49,7 @@ export default function Router() {
                         {
                             index: true,
                             element: (
-                                <AuthGard redirectTo="/" role={TEACHER}>
+                                <AuthGard redirectTo="/" role={ROLE_TEACHER}>
                                     <Teacher />
                                 </AuthGard>
                             ),
@@ -57,7 +57,7 @@ export default function Router() {
                         {
                             path: 'tests',
                             element: (
-                                <AuthGard redirectTo="/" role={TEACHER}>
+                                <AuthGard redirectTo="/" role={ROLE_TEACHER}>
                                     <TeacherTests />
                                 </AuthGard>
                             ),
@@ -70,7 +70,7 @@ export default function Router() {
                         {
                             index: true,
                             element: (
-                                <AuthGard redirectTo="/" role={ADMIN}>
+                                <AuthGard redirectTo="/" role={ROLE_ADMIN}>
                                     <Admin />
                                 </AuthGard>
                             ),
@@ -78,7 +78,7 @@ export default function Router() {
                         {
                             path: 'professors',
                             element: (
-                                <AuthGard redirectTo="/" role={ADMIN}>
+                                <AuthGard redirectTo="/" role={ROLE_ADMIN}>
                                     <Professors />
                                 </AuthGard>
                             ),
@@ -86,7 +86,7 @@ export default function Router() {
                         {
                             path: 'students',
                             element: (
-                                <AuthGard redirectTo="/" role={ADMIN}>
+                                <AuthGard redirectTo="/" role={ROLE_ADMIN}>
                                     <Students />
                                 </AuthGard>
                             ),

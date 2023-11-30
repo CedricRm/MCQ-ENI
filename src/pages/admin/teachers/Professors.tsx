@@ -3,12 +3,36 @@ import Sidebar from '../Sidebar'
 import ProfessorsList from './ProfessorsList'
 import Searchbar from '../Searchbar'
 import AddProfessorModal from './AddProfessorModal'
+import { user } from '../../../utils/interfaces'
+import DeleteUserModal from '../DeleteUserModal'
+import ModifyProfessorModal from './ModifyProfessorModal'
 
 const Professors: FC = () => {
     const [showAddProfessorModal, setShowAddProfessorModal] = useState(false)
+    const [isDeletingUserModalActive, setIsDeletingUserModalActive] =
+        useState(false)
+    const [isModifyingUserModalActive, setModifyingUserModalActive] =
+        useState(false)
+    const [selectedUser, setSelectedUser] = useState<user>({})
 
     const handleAddProfessorModal = () => {
         setShowAddProfessorModal(!showAddProfessorModal)
+    }
+
+    const handleDeletingUserModal = (user?: user) => {
+        if (user) {
+            setSelectedUser(user)
+        }
+
+        setIsDeletingUserModalActive(!isDeletingUserModalActive)
+    }
+
+    const handleModifyProfessorModal = (user?: user) => {
+        if (user) {
+            setSelectedUser(user)
+        }
+
+        setModifyingUserModalActive(!isModifyingUserModalActive)
     }
 
     return (
@@ -29,7 +53,14 @@ const Professors: FC = () => {
                                 </button>
                             </div>
 
-                            <ProfessorsList />
+                            <ProfessorsList
+                                handleDeletingUserModal={
+                                    handleDeletingUserModal
+                                }
+                                handleModifyProfessorModal={
+                                    handleModifyProfessorModal
+                                }
+                            />
                         </div>
                     </div>
                 </div>
@@ -38,6 +69,20 @@ const Professors: FC = () => {
             {showAddProfessorModal && (
                 <AddProfessorModal
                     handleAddProfessorModal={handleAddProfessorModal}
+                />
+            )}
+
+            {isDeletingUserModalActive && (
+                <DeleteUserModal
+                    user={selectedUser}
+                    handleDeletingUserModal={handleDeletingUserModal}
+                />
+            )}
+
+            {isModifyingUserModalActive && (
+                <ModifyProfessorModal
+                    user={selectedUser}
+                    handleModifyProfessorModal={handleModifyProfessorModal}
                 />
             )}
         </div>
