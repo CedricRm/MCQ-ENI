@@ -9,6 +9,7 @@ const useVerifyUser = () => {
         if (userInfo) {
             // store user information to user context
             userDispatch({ type: 'setUserInfo', payload: userInfo })
+            return userInfo
         }
     }
 

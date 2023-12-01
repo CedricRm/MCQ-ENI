@@ -1,6 +1,7 @@
 import { useEffect, ReactNode } from 'react'
 import { useNavigate } from 'react-router-dom'
-import useUser from '../hooks/context/useUser'
+import useVerifyUser from '../hooks/auth/useVerifyUser'
+import { user } from '../utils/interfaces'
 
 interface AuthGardInterface {
     children: ReactNode
@@ -10,16 +11,24 @@ interface AuthGardInterface {
 
 const AuthGard = ({ children, redirectTo, role }: AuthGardInterface) => {
     const authToken = localStorage.getItem('@mcqENI.token')
-    const {
-        userState: { userInfo },
-    } = useUser()
+    const { verifyUser } = useVerifyUser()
     const navigate = useNavigate()
 
     useEffect(() => {
-        if (!authToken || userInfo.role != role) {
-            navigate(redirectTo)
+        async function checkUser() {
+            if (authToken) {
+                const userInfo: user = await verifyUser(authToken)
+                if (userInfo.role != role) {
+                    navigate(redirectTo)
+                }
+            } else {
+                navigate(redirectTo)
+            }
         }
-    })
+
+        checkUser()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [authToken])
 
     return <>{children}</>
 }
