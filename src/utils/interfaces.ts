@@ -28,3 +28,24 @@ export interface modifyUser {
     level?: number
     role?: number
 }
+
+export interface processedUser {
+    createdAt?: string
+    email?: string
+    firstname?: string
+    id?: number
+    isadmin?: boolean
+    lastname?: string
+    levels?: {
+        id: number
+        designation: string
+    }
+    password?: number
+    phone?: string
+    registrationnumber?: string
+    user_role?: {
+        id: number
+        role: string
+    }
+    slug?: string
+}

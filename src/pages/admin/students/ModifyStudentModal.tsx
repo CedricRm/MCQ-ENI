@@ -2,15 +2,24 @@ import { FC, FormEvent, useState } from 'react'
 import { modifyUser, processedUser } from '../../../utils/interfaces'
 import useModifyUser from '../../../hooks/user/useModifyUser'
 import Spinner from '../../../components/Spinner'
+import {
+    LEVEL_L1,
+    LEVEL_L2,
+    LEVEL_L3,
+    LEVEL_M1,
+    LEVEL_M2,
+    LEVEL_teacher,
+    ROLE_TEACHER,
+} from '../../../utils/constants'
 
-interface ModifyProfessorInterface {
+interface ModifyStudentInterface {
     user: processedUser
-    handleModifyProfessorModal: () => void
+    handleModifyStudentModal: () => void
 }
 
-const ModifyProfessorModal: FC<ModifyProfessorInterface> = ({
+const ModifyStudentModal: FC<ModifyStudentInterface> = ({
     user,
-    handleModifyProfessorModal,
+    handleModifyStudentModal,
 }) => {
     const [userValue, setUserValue] = useState<processedUser>(user)
     const { isModifyingUser, modifyUser } = useModifyUser()
@@ -31,14 +40,16 @@ const ModifyProfessorModal: FC<ModifyProfessorInterface> = ({
             registrationnumber: userValue.registrationnumber,
             phone: userValue.phone,
             email: userValue.email,
-            level: userValue.levels?.id,
-            role: userValue.user_role?.id,
+            level: LEVEL_teacher,
+            role: ROLE_TEACHER,
         }
 
         if (await modifyUser(update.registrationnumber, update)) {
             window.location.reload()
         }
     }
+
+    console.log(userValue)
 
     return (
         <div className="fixed left-0 right-0 top-0 z-[52] h-[calc(100%-1rem)] max-h-full w-full items-center justify-center overflow-y-auto overflow-x-hidden bg-black bg-opacity-80 md:inset-0">
@@ -51,7 +62,7 @@ const ModifyProfessorModal: FC<ModifyProfessorInterface> = ({
                         <img
                             src="/assets/icons/ic_close.png"
                             className="absolute right-0 top-0 z-30 h-5 cursor-pointer"
-                            onClick={handleModifyProfessorModal}
+                            onClick={handleModifyStudentModal}
                         />
                     </div>
                     <form onSubmit={(e) => handleModifyProfessor(e)}>
@@ -84,6 +95,18 @@ const ModifyProfessorModal: FC<ModifyProfessorInterface> = ({
                             value={userValue.registrationnumber}
                             onChange={handleInputChange}
                         />
+                        <p className="font-Marge mt-4 text-sm">Niveau :</p>
+                        <select
+                            name="level"
+                            className="mt-2 h-10 w-full rounded-md border-2 border-white border-opacity-20 bg-primaryDark-background px-2"
+                            defaultValue={userValue.levels?.id}
+                        >
+                            <option value={LEVEL_L1}>L1</option>
+                            <option value={LEVEL_L2}>L2</option>
+                            <option value={LEVEL_L3}>L3</option>
+                            <option value={LEVEL_M1}>M1</option>
+                            <option value={LEVEL_M2}>M2</option>
+                        </select>
                         <p className="font-Marge mt-4 text-sm">Téléphone :</p>
                         <input
                             type="text"
@@ -107,7 +130,7 @@ const ModifyProfessorModal: FC<ModifyProfessorInterface> = ({
                         <div className="mt-8 flex items-center gap-2">
                             <button
                                 className="flex-1 cursor-pointer rounded-xl bg-purple bg-opacity-70 px-2 py-2"
-                                onClick={() => handleModifyProfessorModal()}
+                                onClick={() => handleModifyStudentModal()}
                             >
                                 Annuler
                             </button>
@@ -130,4 +153,4 @@ const ModifyProfessorModal: FC<ModifyProfessorInterface> = ({
     )
 }
 
-export default ModifyProfessorModal
+export default ModifyStudentModal

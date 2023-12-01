@@ -1,21 +1,21 @@
 import { FC, useEffect } from 'react'
 import useGetUsers from '../../../hooks/user/useGetUsers'
-import { user } from '../../../utils/interfaces'
+import { processedUser } from '../../../utils/interfaces'
 
-interface professorsListInterface {
-    handleDeletingUserModal: (user: user) => void
-    handleModifyProfessorModal: (user: user) => void
+interface StudentsListInterface {
+    handleDeletingUserModal: (user: processedUser) => void
+    handleModifyStudentModal: (user: processedUser) => void
 }
 
-const ProfessorsList: FC<professorsListInterface> = ({
+const StudentsList: FC<StudentsListInterface> = ({
     handleDeletingUserModal,
-    handleModifyProfessorModal,
+    handleModifyStudentModal,
 }) => {
     const { filterUsers, users } = useGetUsers()
 
     useEffect(() => {
         const filter = {
-            searchRole: 'teacher',
+            searchRole: 'student',
         }
 
         filterUsers(filter)
@@ -28,6 +28,9 @@ const ProfessorsList: FC<professorsListInterface> = ({
                 <thead className="bg-blue bg-opacity-50 text-xs uppercase">
                     <tr>
                         <th scope="col" className="px-6 py-3">
+                            N° matricule
+                        </th>
+                        <th scope="col" className="px-6 py-3">
                             Nom
                         </th>
                         <th scope="col" className="px-6 py-3">
@@ -35,6 +38,9 @@ const ProfessorsList: FC<professorsListInterface> = ({
                         </th>
                         <th scope="col" className="px-6 py-3">
                             Email
+                        </th>
+                        <th scope="col" className="px-6 py-3">
+                            Niveau
                         </th>
                         <th scope="col" className="px-6 py-3">
                             Téléphone
@@ -47,7 +53,7 @@ const ProfessorsList: FC<professorsListInterface> = ({
                 </thead>
                 <tbody>
                     {users && users.length > 0 ? (
-                        users.map((user: user) => (
+                        users.map((user: processedUser) => (
                             <tr
                                 className="dark:bg-gray-800 dark:border-gray-700 border-b"
                                 key={user.registrationnumber}
@@ -56,10 +62,14 @@ const ProfessorsList: FC<professorsListInterface> = ({
                                     scope="row"
                                     className="text-gray-900 whitespace-nowrap px-6 py-4 font-medium dark:text-white"
                                 >
-                                    {user.firstname}
+                                    {user.registrationnumber}
                                 </th>
+                                <td className="px-6 py-4">{user.firstname}</td>
                                 <td className="px-6 py-4">{user.lastname}</td>
                                 <td className="px-6 py-4">{user.email}</td>
+                                <td className="px-6 py-4">
+                                    {user.levels?.designation}
+                                </td>
                                 <td className="px-6 py-4">{user.phone}</td>
                                 <td className="flex gap-4 px-6 py-4">
                                     <img
@@ -67,7 +77,7 @@ const ProfessorsList: FC<professorsListInterface> = ({
                                         alt="modify icon"
                                         className="h-4 w-4 cursor-pointer"
                                         onClick={() =>
-                                            handleModifyProfessorModal(user)
+                                            handleModifyStudentModal(user)
                                         }
                                     />
                                     <img
@@ -94,4 +104,4 @@ const ProfessorsList: FC<professorsListInterface> = ({
     )
 }
 
-export default ProfessorsList
+export default StudentsList

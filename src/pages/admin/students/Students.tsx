@@ -1,14 +1,38 @@
 import { FC, useState } from 'react'
 import Sidebar from '../Sidebar'
 import Searchbar from '../Searchbar'
-import StudentsLists from './StudentsLists'
+import StudentsList from './StudentsList.tsx'
 import AddStudentModal from './AddStudentModal'
+import { user } from '../../../utils/interfaces.ts'
+import DeleteUserModal from '../DeleteUserModal.tsx'
+import ModifyStudentModal from './ModifyStudentModal.tsx'
 
 const Students: FC = () => {
     const [showAddStudentModal, setShowAddStudent] = useState(false)
+    const [isDeletingUserModalActive, setIsDeletingUserModalActive] =
+        useState(false)
+    const [isModifyingUserModalActive, setModifyingUserModalActive] =
+        useState(false)
+    const [selectedUser, setSelectedUser] = useState<user>({})
 
     const handleAddStudentModal = () => {
         setShowAddStudent(!showAddStudentModal)
+    }
+
+    const handleDeletingUserModal = (user?: user) => {
+        if (user) {
+            setSelectedUser(user)
+        }
+
+        setIsDeletingUserModalActive(!isDeletingUserModalActive)
+    }
+
+    const handleModifyStudentModal = (user?: user) => {
+        if (user) {
+            setSelectedUser(user)
+        }
+
+        setModifyingUserModalActive(!isModifyingUserModalActive)
     }
 
     return (
@@ -29,7 +53,14 @@ const Students: FC = () => {
                                 </button>
                             </div>
 
-                            <StudentsLists />
+                            <StudentsList
+                                handleDeletingUserModal={
+                                    handleDeletingUserModal
+                                }
+                                handleModifyStudentModal={
+                                    handleModifyStudentModal
+                                }
+                            />
                         </div>
                     </div>
                 </div>
@@ -38,6 +69,20 @@ const Students: FC = () => {
             {showAddStudentModal && (
                 <AddStudentModal
                     handleAddStudentModal={handleAddStudentModal}
+                />
+            )}
+
+            {isDeletingUserModalActive && (
+                <DeleteUserModal
+                    user={selectedUser}
+                    handleDeletingUserModal={handleDeletingUserModal}
+                />
+            )}
+
+            {isModifyingUserModalActive && (
+                <ModifyStudentModal
+                    user={selectedUser}
+                    handleModifyStudentModal={handleModifyStudentModal}
                 />
             )}
         </div>
