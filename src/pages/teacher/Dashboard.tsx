@@ -3,7 +3,7 @@ import { FC, useState } from 'react'
 // import SubjectsSection from './SubjectsSection'
 import LittleCircleForms from '../../components/LittleCircleForms'
 import Hero from './Hero'
-import TestsList from './TestsList'
+import TestsList from './tests/TestsList'
 import Calendar from 'react-calendar'
 
 type ValuePiece = Date | null

@@ -1,0 +1,97 @@
+import { FC, useEffect } from 'react'
+import useGetTests from '../../../hooks/test/useGetTests'
+import { processedTest } from '../../../utils/interfaces'
+
+interface TestsListInterface {
+    handleDeleteTestModal: (test: processedTest) => void
+    handleModifyTestModal: (test: processedTest) => void
+}
+
+const TestsList: FC<TestsListInterface> = ({
+    handleModifyTestModal,
+    handleDeleteTestModal,
+}) => {
+    const { getTests, tests } = useGetTests()
+
+    useEffect(() => {
+        getTests()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
+
+    return (
+        <div className="relative overflow-x-auto rounded-xl bg-black bg-opacity-50 p-2 backdrop-blur-md">
+            <table className="w-full text-left text-sm text-white rtl:text-right">
+                <thead className="bg-blue bg-opacity-50 text-xs uppercase">
+                    <tr>
+                        <th scope="col" className="px-6 py-3">
+                            Désignation
+                        </th>
+                        <th scope="col" className="px-6 py-3">
+                            Sujet
+                        </th>
+                        <th scope="col" className="px-6 py-3">
+                            Niveau
+                        </th>
+                        <th scope="col" className="px-6 py-3">
+                            Durée
+                        </th>
+                        <th scope="col" className="px-6 py-3">
+                            Date
+                        </th>
+                        {/* <th scope="col" className="px-6 py-3">
+                            Status
+                        </th> */}
+                        <th scope="col" className="px-6 py-3"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {tests.length > 0 &&
+                        tests.map((test: processedTest) => (
+                            <tr
+                                className="dark:bg-gray-800 dark:border-gray-700 border-b"
+                                key={test.slug}
+                            >
+                                <th
+                                    scope="row"
+                                    className="text-gray-900 whitespace-nowrap px-6 py-4 font-medium dark:text-white"
+                                >
+                                    {test.designation}
+                                </th>
+                                <td className="px-6 py-4">{test.subject}</td>
+                                <td className="px-6 py-4">
+                                    {test.levels?.designation}
+                                </td>
+                                <td className="px-6 py-4">{test.duration}</td>
+                                <td className="px-6 py-4">{test.datetest}</td>
+                                {/* <td className="px-6 py-4">
+                                    <p className="bg-red px-2 py-1 text-center uppercase">
+                                        ACTIVE
+                                    </p>
+                                </td> */}
+                                <td className="flex gap-4 px-6 py-4">
+                                    <img
+                                        src="/assets/icons/ic_pen.png"
+                                        alt="modify icon"
+                                        className="h-4 w-4 cursor-pointer"
+                                        onClick={() =>
+                                            handleModifyTestModal(test)
+                                        }
+                                    />
+                                    <img
+                                        src="/assets/icons/ic_erazer.png"
+                                        alt="modify icon"
+                                        className="h-5 w-5 cursor-pointer"
+                                        onClick={() =>
+                                            handleDeleteTestModal(test)
+                                        }
+                                    />
+                                </td>
+                            </tr>
+                        ))}
+                </tbody>
+            </table>
+        </div>
+    )
+}
+
+export default TestsList

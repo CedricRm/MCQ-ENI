@@ -49,8 +49,6 @@ const ModifyStudentModal: FC<ModifyStudentInterface> = ({
         }
     }
 
-    console.log(userValue)
-
     return (
         <div className="fixed left-0 right-0 top-0 z-[52] h-[calc(100%-1rem)] max-h-full w-full items-center justify-center overflow-y-auto overflow-x-hidden bg-black bg-opacity-80 md:inset-0">
             <div className="flex h-full items-center justify-center text-white">

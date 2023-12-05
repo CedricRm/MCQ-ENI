@@ -1,5 +1,4 @@
 import { ChangeEvent, FC, FormEvent, useState } from 'react'
-import useUser from '../../../hooks/context/useUser'
 import {
     LEVEL_L1,
     LEVEL_L2,
@@ -7,23 +6,31 @@ import {
     LEVEL_M1,
     LEVEL_M2,
 } from '../../../utils/constants'
-import useCreateTest from '../../../hooks/test/useCreateTest'
+import userModifyTest from '../../../hooks/test/useModifyTest'
 import Spinner from '../../../components/Spinner'
+import { processedTest, test } from '../../../utils/interfaces'
 
-interface AddTestModal {
-    handleAddTestModal: () => void
+interface ModifyTestModalInterface {
+    handleModifyTestModal: () => void
+    test: processedTest
 }
 
-const AddTestModal: FC<AddTestModal> = ({ handleAddTestModal }) => {
-    const {
-        userState: { userInfo },
-    } = useUser()
-    const [formData, setFormData] = useState({
-        user: userInfo.sub,
-        yeartest: '2023',
-        level: 1,
+const ModifyTestModal: FC<ModifyTestModalInterface> = ({
+    handleModifyTestModal,
+    test,
+}) => {
+    const [testValue, setTestValue] = useState<test>({
+        designation: test.designation,
+        subject: test.subject,
+        yeartest: test.yeartest,
+        duration: test.duration,
+        datetest: test.datetest?.slice(0, 10),
+        level: test.levels?.id,
+        user: test.users?.id.toString(),
+        slug: test.slug,
     })
-    const { createTest, isCreatingTest } = useCreateTest()
+
+    const { modifyTest, isModifyingTest } = userModifyTest()
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target
@@ -32,37 +39,27 @@ const AddTestModal: FC<AddTestModal> = ({ handleAddTestModal }) => {
         const numericValue = Number(value)
 
         if (!isNaN(numericValue)) {
-            // If the value is a valid number, store it as a number
-            setFormData((prevFormData) => ({
-                ...prevFormData,
-                [name]: numericValue,
-            }))
+            setTestValue({ ...testValue, [name]: numericValue })
         } else {
-            // If the value is not a valid number, store it as a string
-            setFormData((prevFormData) => ({
-                ...prevFormData,
-                [name]: value,
-            }))
+            setTestValue({ ...testValue, [name]: value })
         }
     }
+
     const handleSelect = (e: ChangeEvent<HTMLSelectElement>) => {
         const { value } = e.target
 
         const numericValue = Number(value)
 
-        setFormData((prevFormData) => ({
-            ...prevFormData,
-            level: numericValue,
-        }))
+        setTestValue({ ...testValue, level: numericValue })
     }
 
-    const handleCreateTest = async (e: FormEvent<HTMLFormElement>) => {
+    const handleModifyTest = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
 
-        console.log(formData)
+        console.log(testValue)
 
         // create the test
-        if (await createTest(formData)) {
+        if (await modifyTest(testValue)) {
             window.location.reload()
         }
     }
@@ -72,19 +69,20 @@ const AddTestModal: FC<AddTestModal> = ({ handleAddTestModal }) => {
             <div className="flex h-full items-center justify-center text-white">
                 <div className="flex w-[30rem] flex-col overflow-hidden rounded-xl bg-primaryDark-background px-6 py-6">
                     <div className="relative border-b-2 border-white border-opacity-5 pb-4">
-                        <p className="text-lg">Ajouter un test</p>
+                        <p className="text-lg">Modifier</p>
                         <img
                             src="/assets/icons/ic_close.png"
                             className="absolute right-0 top-0 z-30 h-5 cursor-pointer"
-                            onClick={handleAddTestModal}
+                            onClick={handleModifyTestModal}
                         />
                     </div>
-                    <form onSubmit={(e) => handleCreateTest(e)}>
+                    <form onSubmit={(e) => handleModifyTest(e)}>
                         <p className="font-Marge mt-8 text-sm">Désignation :</p>
                         <input
                             type="text"
                             className="mt-2 h-10 w-full rounded-md border-2 border-white border-opacity-20 bg-primaryDark-background px-2"
                             name="designation"
+                            value={testValue.designation}
                             onChange={handleChange}
                             required
                         />
@@ -93,6 +91,7 @@ const AddTestModal: FC<AddTestModal> = ({ handleAddTestModal }) => {
                             type="text"
                             className="mt-2 h-10 w-full rounded-md border-2 border-white border-opacity-20 bg-primaryDark-background px-2"
                             name="subject"
+                            value={testValue.subject}
                             onChange={handleChange}
                             required
                         />
@@ -100,7 +99,7 @@ const AddTestModal: FC<AddTestModal> = ({ handleAddTestModal }) => {
                         <select
                             name="level"
                             className="mt-2 h-10 w-full rounded-md border-2 border-white border-opacity-20 bg-primaryDark-background px-2"
-                            defaultValue={LEVEL_L1}
+                            defaultValue={testValue.level}
                             onChange={handleSelect}
                         >
                             <option value={LEVEL_L1}>L1</option>
@@ -114,6 +113,7 @@ const AddTestModal: FC<AddTestModal> = ({ handleAddTestModal }) => {
                             type="number"
                             className="mt-2 h-10 w-full rounded-md border-2 border-white border-opacity-20 bg-primaryDark-background px-2"
                             name="duration"
+                            value={testValue.duration}
                             onChange={handleChange}
                             required
                         />
@@ -124,6 +124,7 @@ const AddTestModal: FC<AddTestModal> = ({ handleAddTestModal }) => {
                             type="date"
                             className="mt-2 h-10 w-full rounded-md border-2 border-white border-opacity-20 bg-primaryDark-background px-2"
                             name="datetest"
+                            value={testValue.datetest}
                             onChange={handleChange}
                             required
                         />
@@ -159,9 +160,13 @@ const AddTestModal: FC<AddTestModal> = ({ handleAddTestModal }) => {
                             <button
                                 className="flex w-full cursor-pointer items-center justify-center rounded-xl bg-red px-6 py-2.5 text-center"
                                 type="submit"
-                                disabled={isCreatingTest}
+                                disabled={isModifyingTest}
                             >
-                                {!isCreatingTest ? <p>Créer</p> : <Spinner />}
+                                {!isModifyingTest ? (
+                                    <p>Modifer</p>
+                                ) : (
+                                    <Spinner />
+                                )}
                             </button>
                         </div>
                     </form>
@@ -171,4 +176,4 @@ const AddTestModal: FC<AddTestModal> = ({ handleAddTestModal }) => {
     )
 }
 
-export default AddTestModal
+export default ModifyTestModal

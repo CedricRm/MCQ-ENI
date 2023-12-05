@@ -2,13 +2,35 @@ import { FC, useState } from 'react'
 import Sidebar from '../Sidebar'
 import Searchbar from '../Searchbar'
 import AddProfessorModal from './AddTestModal'
-import TestsList from '../TestsList'
+import TestsList from './TestsList'
+import ModifyTestModal from './ModifyTestModal'
+import { processedTest } from '../../../utils/interfaces'
+import DeleteTestModal from './DeleteTestModal'
 
 const Index: FC = () => {
     const [showAddTestModal, setShowAddTestModal] = useState(false)
+    const [showModifyTestModal, setShowModifyModal] = useState(false)
+    const [showDeleteTestModal, setShowDeleteModal] = useState(false)
+    const [selectedTest, setSelectedTest] = useState<processedTest>({})
 
     const handleAddTestModal = () => {
         setShowAddTestModal(!showAddTestModal)
+    }
+
+    const handleModifyTestModal = (test?: processedTest) => {
+        if (test) {
+            setSelectedTest(test)
+        }
+
+        setShowModifyModal(!showModifyTestModal)
+    }
+
+    const handleDeleteTestModal = (test?: processedTest) => {
+        if (test) {
+            setSelectedTest(test)
+        }
+
+        setShowDeleteModal(!showDeleteTestModal)
     }
 
     return (
@@ -29,7 +51,10 @@ const Index: FC = () => {
                                 </button>
                             </div>
 
-                            <TestsList />
+                            <TestsList
+                                handleDeleteTestModal={handleDeleteTestModal}
+                                handleModifyTestModal={handleModifyTestModal}
+                            />
                         </div>
                     </div>
                 </div>
@@ -37,6 +62,20 @@ const Index: FC = () => {
 
             {showAddTestModal && (
                 <AddProfessorModal handleAddTestModal={handleAddTestModal} />
+            )}
+
+            {showModifyTestModal && (
+                <ModifyTestModal
+                    test={selectedTest}
+                    handleModifyTestModal={handleModifyTestModal}
+                />
+            )}
+
+            {showDeleteTestModal && (
+                <DeleteTestModal
+                    test={selectedTest}
+                    handleDeleteTestModal={handleDeleteTestModal}
+                />
             )}
         </div>
     )

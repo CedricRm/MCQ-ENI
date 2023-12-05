@@ -1,9 +1,11 @@
 import { FC } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import LittleCircleForms from '../../components/LittleCircleForms'
 
 const Sidebar: FC = () => {
     const navigate = useNavigate()
+    const location = useLocation()
+    const pathname = location.pathname
 
     const handleRedirect = () => {
         navigate('/')
@@ -23,20 +25,30 @@ const Sidebar: FC = () => {
             </div>
             <ul>
                 <li
-                    className="hover:bg-gray-700 cursor-pointer px-4 py-2 hover:text-red"
-                    onClick={() => navigate('/admin')}
+                    className={`hover:bg-gray-700 cursor-pointer px-4 py-2 ${
+                        pathname === '/teacher' ? 'text-red' : 'hover:text-red'
+                    }`}
+                    onClick={() => navigate('/teacher')}
                 >
                     Mon dashboard
                 </li>
                 <li
-                    className="hover:bg-gray-700 cursor-pointer px-4 py-2 hover:text-red"
+                    className={`hover:bg-gray-700 cursor-pointer px-4 py-2 ${
+                        pathname === '/teacher/tests'
+                            ? 'text-red'
+                            : 'hover:text-red'
+                    }`}
                     onClick={() => navigate('/teacher/tests')}
                 >
                     Mes tests
                 </li>
                 <li
-                    className="hover:bg-gray-700 cursor-pointer px-4 py-2 hover:text-red"
-                    onClick={() => navigate('/admin/students')}
+                    className={`hover:bg-gray-700 cursor-pointer px-4 py-2 ${
+                        pathname === '/teacher/results'
+                            ? 'text-red'
+                            : 'hover:text-red'
+                    }`}
+                    // onClick={() => navigate('/admin/students')}
                 >
                     Mes résultats
                 </li>

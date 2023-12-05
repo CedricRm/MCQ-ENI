@@ -5,10 +5,11 @@ export interface question {
 }
 
 export interface user {
+    id?: number
     createdAt?: string
     email?: string
     firstname?: string
-    id?: number
+    sub?: number
     isadmin?: boolean
     lastname?: string
     level?: number
@@ -46,6 +47,39 @@ export interface processedUser {
     user_role?: {
         id: number
         role: string
+    }
+    slug?: string
+}
+export interface test {
+    designation?: string
+    subject?: string
+    yeartest?: string
+    duration?: number | string
+    datetest?: string
+    level?: number
+    user?: string
+    slug?: string
+}
+
+export interface processedTest {
+    id?: number
+    designation?: string
+    subject?: string
+    yeartest?: string
+    duration?: number | string
+    datetest?: string
+    levels?: {
+        id: number
+        designation: string
+    }
+    users?: {
+        firstname: string
+        id: number
+        lastname: string
+        user_role?: {
+            id: number
+            role: string
+        }
     }
     slug?: string
 }
