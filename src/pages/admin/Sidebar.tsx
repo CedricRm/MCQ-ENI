@@ -1,14 +1,20 @@
 import { FC } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import LittleCircleForms from '../../components/LittleCircleForms'
+import useLogOut from '../../hooks/auth/useLogOut'
 
 const Sidebar: FC = () => {
     const navigate = useNavigate()
     const location = useLocation()
     const pathname = location.pathname
+    const { logout } = useLogOut()
 
     const handleRedirect = () => {
         navigate('/')
+    }
+
+    const handleLogOut = () => {
+        logout()
     }
 
     return (
@@ -62,7 +68,10 @@ const Sidebar: FC = () => {
                     Tests
                 </li>
             </ul>
-            <div className="absolute bottom-0 flex cursor-pointer items-center px-4 py-8 hover:text-red">
+            <div
+                className="absolute bottom-0 flex cursor-pointer items-center px-4 py-8 hover:text-red"
+                onClick={handleLogOut}
+            >
                 <img
                     src="/assets/icons/ic_logout.png"
                     alt="Log Out"
