@@ -126,3 +126,33 @@ export const createUserChoice = async (
     )
     return res
 }
+
+export const switchTestToVisible = async (
+    authToken: string,
+    testSlug: string,
+    isvisible: boolean
+) => {
+    const res = await axiosInstance(
+        VITE_API_URL,
+        'put',
+        `/tests/switch-isvisible/${testSlug}`,
+        { Authorization: 'Bearer ' + authToken },
+        { isvisible }
+    )
+    return res
+}
+
+export const switchTestToDone = async (
+    authToken: string,
+    testSlug: string,
+    isdone: boolean
+) => {
+    const res = await axiosInstance(
+        VITE_API_URL,
+        'put',
+        `/tests/switch-isdone/${testSlug}`,
+        { Authorization: 'Bearer ' + authToken },
+        { isdone }
+    )
+    return res
+}

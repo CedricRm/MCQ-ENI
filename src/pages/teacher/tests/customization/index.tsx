@@ -6,6 +6,7 @@ import AddQuestionModal from './AddQuestionModal'
 import QuestionsLists from './QuestionsLists'
 import ModifyQuestionModal from './ModifyQuestionModal'
 import { processedQuestion } from '../../../../utils/interfaces'
+import useModifyTest from '../../../../hooks/test/useModifyTest'
 
 const Index = () => {
     const { slug } = useParams()
@@ -17,6 +18,7 @@ const Index = () => {
     const [selectedQuestion, setSelectedQuestion] = useState<processedQuestion>(
         {}
     )
+    const { switchTestToDone, switchTestToVisible } = useModifyTest()
 
     const navigate = useNavigate()
 
@@ -39,6 +41,56 @@ const Index = () => {
         }
 
         setShowModifyQuestionModal(!showModifyQuestionModal)
+    }
+
+    const handleSwitchTestToActive = async (isvisible: boolean) => {
+        if (slug) {
+            if (await switchTestToVisible(slug, isvisible)) {
+                window.location.reload()
+            }
+        }
+    }
+
+    const handleSwitchTestToDone = async (isdone: boolean) => {
+        if (slug) {
+            if (await switchTestToDone(slug, isdone)) {
+                window.location.reload()
+            }
+        }
+    }
+
+    const renderTestVisibilityButton = () => {
+        let render = null
+
+        if (test.isvisible) {
+            render = (
+                <p
+                    className="cursor-pointer bg-green px-2 py-1 text-center uppercase"
+                    onClick={() => handleSwitchTestToDone(true)}
+                >
+                    VISIBLE
+                </p>
+            )
+        } else {
+            render = (
+                <p
+                    className="cursor-pointer bg-red px-2 py-1 text-center uppercase"
+                    onClick={() => handleSwitchTestToActive(true)}
+                >
+                    NON-VISIBLE
+                </p>
+            )
+        }
+
+        if (test.isdone) {
+            render = (
+                <p className="bg-black bg-opacity-60 px-2 py-1 text-center uppercase">
+                    FAIT
+                </p>
+            )
+        }
+
+        return render
     }
 
     return (
@@ -67,12 +119,7 @@ const Index = () => {
                                     <p className="font-Gilroy text-3xl ">
                                         {test.designation}
                                     </p>
-                                    {/* <p className="bg-red px-2 py-1 text-center uppercase">
-                                        NON-VISIBLE
-                                    </p> */}
-                                    <p className="bg-green px-2 py-1 text-center uppercase">
-                                        VISIBLE
-                                    </p>
+                                    {renderTestVisibilityButton()}
                                 </div>
                             </div>
                             <div className="shadow-xs absolute right-12 w-52 rounded-xl bg-white bg-opacity-10 p-4 text-[1.15rem]">

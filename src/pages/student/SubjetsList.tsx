@@ -43,17 +43,13 @@ const SubjetsList: FC = () => {
 
     useEffect(() => {
         if (allTests && allTests.length > 0) {
-            allTests.forEach((test) => {
-                if (test.isvisible) {
-                    visibleTests.push(test)
-                    setVisibleTests((prevVisibleTest) => [
-                        ...prevVisibleTest,
-                        test,
-                    ])
-                }
-            })
+            const newVisibleTests = allTests.filter(
+                (test) => test.isvisible && !test.isdone
+            )
+            setVisibleTests(newVisibleTests)
         }
-    })
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [allTests])
 
     const handleRedirectToTest = (test: processedTest) => {
         navigate(`test/${test.slug}`)
