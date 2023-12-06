@@ -1,56 +1,47 @@
-import { FC } from 'react'
+import { FC, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import useGetTests from '../../hooks/test/useGetTests'
+import { processedTest } from '../../utils/interfaces'
 
 const SubjetsList: FC = () => {
+    const { getAllTests, allTests } = useGetTests()
     const navigate = useNavigate()
 
-    const subjects = [
-        {
-            name: "Test sur l'initiation de Java",
-            url: '/assets/icons/ic_java.png',
-            color: '#e42f5a',
-        },
-        {
-            name: 'Android',
-            url: '/assets/icons/ic_android.png',
-            color: '#27c064',
-        },
-        {
-            name: 'Algorithmes',
-            url: '/assets/icons/ic_algorithm.png',
-            color: '#f2994a',
-        },
-        {
-            name: 'Analyse des données',
-            url: '/assets/icons/ic_data.png',
-            color: '#FFD600',
-        },
-    ]
+    useEffect(() => {
+        getAllTests()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
-    const handleRedirectToTest = () => {
-        navigate('test')
+    const handleRedirectToTest = (test: processedTest) => {
+        navigate(`test/${test.slug}`)
     }
 
     return (
         <div className="mt-4 flex w-full flex-wrap gap-4">
-            {subjects.map((subject) => (
-                <div
-                    className="relative flex w-[46%] cursor-pointer items-center overflow-hidden bg-secondaryDark-background px-2.5 py-8"
-                    key={subject.name}
-                    onClick={handleRedirectToTest}
-                >
-                    <div>
-                        <p>{subject.name}</p>
+            {allTests.length === 0 ? (
+                <p className="text-xs font-light text-white text-opacity-50">
+                    Aucun test disponible pour le moment
+                </p>
+            ) : (
+                allTests.map((test) => (
+                    <div
+                        className="relative flex w-[46%] cursor-pointer flex-col overflow-hidden rounded-xl bg-secondaryDark-background px-2.5 py-8 hover:bg-red hover:transition-colors"
+                        key={test.id}
+                        onClick={() => handleRedirectToTest(test)}
+                    >
+                        <p className="text-xl font-semibold text-red">
+                            {test.designation}
+                        </p>
+                        <p className="text-white text-opacity-40">
+                            {test.subject}
+                        </p>
+                        <p className="text-white text-opacity-40">
+                            {test.duration} mn
+                        </p>
+                        <div className="absolute -top-4 right-4 h-8 w-8 rounded-full bg-red"></div>
                     </div>
-                    <div className="absolute -bottom-0 right-0 opacity-10">
-                        <img
-                            src={subject.url}
-                            alt="Java"
-                            className="h-10 w-10"
-                        />
-                    </div>
-                </div>
-            ))}
+                ))
+            )}
         </div>
     )
 }

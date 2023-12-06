@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import LittleCircleForms from '../../components/LittleCircleForms'
+import LittleCircleForms from '../../../components/LittleCircleForms'
 import { useNavigate } from 'react-router-dom'
 
 const FinishedTest: FC = () => {

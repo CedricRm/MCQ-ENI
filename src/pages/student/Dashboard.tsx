@@ -2,11 +2,18 @@ import { FC } from 'react'
 import Tutorial from './Tutorial'
 import SubjectsSection from './SubjectsSection'
 import LittleCircleForms from '../../components/LittleCircleForms'
+import useUser from '../../hooks/context/useUser'
 
 const Dashboard: FC = () => {
+    const {
+        userState: { userInfo },
+    } = useUser()
+
     return (
         <div className="relative flex flex-col gap-8 p-8">
-            <p className="text-3xl font-semibold">Bonjour Cédric !</p>
+            <p className="text-3xl font-semibold">
+                Bonjour {userInfo.firstname} !
+            </p>
             <div className="font-Monolisa text-sm">
                 <p>
                     Voici votre{' '}

@@ -1,12 +1,19 @@
 import { FC } from 'react'
 import { useNavigate } from 'react-router-dom'
 import LittleCircleForms from '../../components/LittleCircleForms'
+import useLogOut from '../../hooks/auth/useLogOut'
 
 const Sidebar: FC = () => {
     const navigate = useNavigate()
+    const pathname = location.pathname
+    const { logout } = useLogOut()
 
     const handleRedirect = () => {
         navigate('/')
+    }
+
+    const handleLogOut = () => {
+        logout()
     }
 
     return (
@@ -22,10 +29,27 @@ const Sidebar: FC = () => {
                 </p>
             </div>
             <ul>
-                <li className="hover:bg-gray-700 px-4 py-2">Mon dashboard</li>
-                <li className="hover:bg-gray-700 px-4 py-2">Mes tests</li>
+                <li
+                    className={`hover:bg-gray-700 cursor-pointer px-4 py-2 ${
+                        pathname === '/student' ? 'text-red' : 'hover:text-red'
+                    }`}
+                    onClick={() => navigate('/student')}
+                >
+                    Mon dashboard
+                </li>
+                <li
+                    className={`hover:bg-gray-700 cursor-pointer px-4 py-2 ${
+                        pathname === '/tests' ? 'text-red' : 'hover:text-red'
+                    }`}
+                    onClick={() => navigate('/student/tests')}
+                >
+                    Mes tests
+                </li>
             </ul>
-            <div className="absolute bottom-0 flex cursor-pointer items-center px-4 py-8">
+            <div
+                className="absolute bottom-0 flex cursor-pointer items-center px-4 py-8"
+                onClick={handleLogOut}
+            >
                 <img
                     src="/assets/icons/ic_logout.png"
                     alt="Log Out"

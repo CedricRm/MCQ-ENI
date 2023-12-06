@@ -1,38 +1,85 @@
-import { FC, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import Sidebar from '../student/Sidebar'
+import Sidebar from '../Sidebar'
 import Header from './Header'
 import Introduction from './Introduction'
 import Stepper from './Stepper'
 import Form from './Form'
 import { useTimer } from 'react-timer-hook'
-import { questions } from '../../utils/constants'
 import FinishedTest from './FinishedTest'
-
-const steps = questions.length + 1
+import { useParams } from 'react-router-dom'
+import useGetTests from '../../../hooks/test/useGetTests'
+import useGetQuestion from '../../../hooks/question/useGetQuestion'
+import useCreateUserTest from '../../../hooks/user-test/useCreateUserTest'
 
 const Index: FC = () => {
+    const { slug } = useParams()
+    const { getTestBySlug, test } = useGetTests()
+    const { getAllQuestionsByTestSlug, allQuestions } = useGetQuestion()
+    const { createUserTest, isCreatingUserTest } = useCreateUserTest()
+
+    const steps = allQuestions.length + 1
+
     const [isTestStarted, setIsTestStarted] = useState(false)
     const [isTestFinished, setIsTestFinished] = useState(false)
     const [step, setStep] = useState(-1)
     const time = new Date()
     time.setSeconds(time.getSeconds() + 600)
-    const { seconds, minutes, start, pause } = useTimer({
+    const [timerConfig, setTimerConfig] = useState({
         autoStart: false,
         expiryTimestamp: time,
         onExpire: () => console.warn('onExpire called'),
     })
 
+    useEffect(() => {
+        if (slug) getTestBySlug(slug)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [slug])
+
+    useEffect(() => {
+        const testDuration = Number(test.duration)
+
+        // attribute test duration to the timer
+        if (testDuration && !isNaN(testDuration)) {
+            const durationInMilliseconds = testDuration * 60 * 1000
+            const time = new Date()
+            time.setSeconds(
+                time.getSeconds() + Math.floor(durationInMilliseconds / 1000)
+            )
+
+            setTimerConfig({
+                autoStart: false,
+                expiryTimestamp: time,
+                onExpire: () => console.warn('onExpire called'),
+            })
+        } else {
+            console.warn('Invalid test.duration:', test.duration)
+        }
+    }, [test.duration])
+
+    const { seconds, minutes, start, pause } = useTimer(timerConfig)
+    useEffect(() => {
+        if (test && test.slug) {
+            getAllQuestionsByTestSlug(test.slug)
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [test])
+
     const updateStep = () => {
         setStep(step + 1)
     }
 
-    const handleStartTest = () => {
-        // start countdown
-        start()
-        // update step
-        setIsTestStarted(!isTestStarted)
-        updateStep()
+    const handleStartTest = async () => {
+        // create user test
+        if (test.id) {
+            if (await createUserTest(test.id)) {
+                // start countdown
+                start()
+                // update step
+                setIsTestStarted(!isTestStarted)
+                updateStep()
+            }
+        }
     }
 
     const handleFinishTest = () => {
@@ -53,6 +100,8 @@ const Index: FC = () => {
                         className={`flex h-[100vh] w-full flex-col justify-between px-8 py-8`}
                     >
                         <Header
+                            test={test}
+                            questions={allQuestions}
                             isTestStarted={isTestStarted}
                             isTestFinished={isTestFinished}
                             seconds={seconds}
@@ -67,6 +116,7 @@ const Index: FC = () => {
                             >
                                 {!isTestStarted && !isTestFinished && (
                                     <Introduction
+                                        loading={isCreatingUserTest}
                                         handleStartTest={handleStartTest}
                                     />
                                 )}
@@ -76,8 +126,9 @@ const Index: FC = () => {
                                         updateStep={updateStep}
                                         step={step}
                                         steps={steps}
-                                        question={questions[step]}
+                                        question={allQuestions[step]}
                                         handleFinishTest={handleFinishTest}
+                                        test={test}
                                     />
                                 )}
 

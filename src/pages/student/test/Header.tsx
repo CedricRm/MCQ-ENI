@@ -1,16 +1,13 @@
 import { FC } from 'react'
-
-const subject = {
-    name: "Test sur l'initiation de Java",
-    url: '/assets/icons/ic_java.png',
-    color: '#e42f5a',
-}
+import { processedQuestion, processedTest } from '../../../utils/interfaces'
 
 interface HeaderProps {
     isTestStarted: boolean
     isTestFinished: boolean
     seconds: number
     minutes: number
+    test: processedTest
+    questions: processedQuestion[]
 }
 
 const Header: FC<HeaderProps> = ({
@@ -18,6 +15,8 @@ const Header: FC<HeaderProps> = ({
     isTestFinished,
     seconds,
     minutes,
+    test,
+    questions,
 }) => {
     return (
         <div className="relative flex w-full flex-col gap-8">
@@ -25,25 +24,30 @@ const Header: FC<HeaderProps> = ({
                 <div className="relative flex-1">
                     <div className="absolute left-0 top-0 opacity-10">
                         <img
-                            src={subject.url}
+                            src="/assets/icons/ic_test.png"
                             alt="Java"
                             className="h-14 w-14"
                         />
                     </div>
-                    <p className="mt-4 pl-8 text-3xl font-semibold text-white">
-                        INITIATION EN JAVA
+                    <p className="mt-2 pl-8 text-3xl font-semibold text-white">
+                        {test.designation}
+                    </p>
+                    <p className="pl-8 text-sm text-white text-opacity-40">
+                        {test.subject}
                     </p>
                 </div>
                 {!isTestStarted && !isTestFinished ? (
                     <div className="flex-1 text-right text-xs">
                         <p className="mt-4">
                             Nombre de questions :{' '}
-                            <span className="font-semibold text-red">20</span>
+                            <span className="font-semibold text-red">
+                                {questions.length}
+                            </span>
                         </p>
                         <p className="mt-2">
                             Temps limite :{' '}
                             <span className="font-semibold text-red">
-                                10 mn
+                                {test.duration} mn
                             </span>
                         </p>
                     </div>

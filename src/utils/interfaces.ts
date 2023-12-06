@@ -100,5 +100,5 @@ export interface processedQuestion {
     id?: number
     createdAt?: string
     test?: processedTest
-    choices?: choice[]
+    choices?: processedChoice[]
 }

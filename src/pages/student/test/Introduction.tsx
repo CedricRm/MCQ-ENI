@@ -1,11 +1,13 @@
 import { FC } from 'react'
-import LittleCircleForms from '../../components/LittleCircleForms'
+import LittleCircleForms from '../../../components/LittleCircleForms'
+import Spinner from '../../../components/Spinner'
 
 interface IntroductionProps {
     handleStartTest: () => void
+    loading: boolean
 }
 
-const Introduction: FC<IntroductionProps> = ({ handleStartTest }) => {
+const Introduction: FC<IntroductionProps> = ({ handleStartTest, loading }) => {
     return (
         <div className="ite ms-center    flex justify-center">
             <div className="relative flex w-80 flex-col items-center rounded-xl bg-black bg-opacity-50 p-8 text-xl">
@@ -19,10 +21,10 @@ const Introduction: FC<IntroductionProps> = ({ handleStartTest }) => {
                 />
                 <div
                     className="relative mt-8 flex cursor-pointer items-center overflow-hidden"
-                    onClick={handleStartTest}
+                    onClick={() => handleStartTest()}
                 >
-                    <div className="w-60 rounded-xl bg-[#ff2b69] px-6 py-2.5 text-center text-xs">
-                        <p>Commencer</p>
+                    <div className="flex w-60 items-center justify-center rounded-xl bg-[#ff2b69] px-6 py-2.5 text-center text-xs">
+                        {!loading ? <p>Commencer</p> : <Spinner />}
                     </div>
                     <LittleCircleForms className="absolute -bottom-40 -right-0 left-0 flex justify-center" />
                 </div>

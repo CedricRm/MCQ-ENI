@@ -1,9 +1,10 @@
 import { useState } from 'react'
 import { getAllQuestionsByTestSlug as getAllQuestionsByTestSlugService } from '../../services/questions'
+import { processedQuestion } from '../../utils/interfaces'
 
 const useGetQuestion = () => {
     const [isGettingQuestions, setIsGettingQuestions] = useState(false)
-    const [allQuestions, setAllQuestions] = useState([])
+    const [allQuestions, setAllQuestions] = useState<processedQuestion[]>([])
     const authToken = localStorage.getItem('@mcqENI.token')
 
     const getAllQuestionsByTestSlug = async (testSlug: string) => {

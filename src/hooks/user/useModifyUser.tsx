@@ -7,8 +7,6 @@ const useModifyUser = () => {
     const authToken = localStorage.getItem('@mcqENI.token')
 
     const modifyUser = async (slug?: string, data?: modifyUserInterface) => {
-        console.log(slug)
-        console.log(data)
         if (!authToken || authToken === '') {
             console.error('Missing or invalid authToken')
             return

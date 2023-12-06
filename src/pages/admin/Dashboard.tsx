@@ -40,9 +40,6 @@ const Dashboard: FC = () => {
                     <div className="rounded-xl bg-black bg-opacity-50 p-4 backdrop-blur-md">
                         <Calendar onChange={onChange} value={value} />
                     </div>
-                    <div>
-                        <p>blabal</p>
-                    </div>
                 </div>
             </div>
             <LittleCircleForms className="absolute -right-[82rem] bottom-0 left-0 z-10 flex justify-center" />

@@ -35,11 +35,19 @@ export default function Router() {
                         },
                         {
                             path: 'test',
-                            element: (
-                                <AuthGard redirectTo="/" role={ROLE_STUDENT}>
-                                    <Test />
-                                </AuthGard>
-                            ),
+                            children: [
+                                {
+                                    path: ':slug',
+                                    element: (
+                                        <AuthGard
+                                            redirectTo="/"
+                                            role={ROLE_STUDENT}
+                                        >
+                                            <Test />
+                                        </AuthGard>
+                                    ),
+                                },
+                            ],
                         },
                     ],
                 },
@@ -121,7 +129,7 @@ export default function Router() {
 const Home = Loadable(lazy(() => import('../pages/home')))
 // Student
 const Student = Loadable(lazy(() => import('../pages/student')))
-const Test = Loadable(lazy(() => import('../pages/test')))
+const Test = Loadable(lazy(() => import('../pages/student/test')))
 // Admin
 const Admin = Loadable(lazy(() => import('../pages/admin')))
 const Professors = Loadable(

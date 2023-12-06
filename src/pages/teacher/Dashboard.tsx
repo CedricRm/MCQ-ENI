@@ -5,6 +5,7 @@ import LittleCircleForms from '../../components/LittleCircleForms'
 import Hero from './Hero'
 import TestsList from './tests/TestsList'
 import Calendar from 'react-calendar'
+import useUser from '../../hooks/context/useUser'
 
 type ValuePiece = Date | null
 
@@ -12,10 +13,15 @@ type Value = ValuePiece | [ValuePiece, ValuePiece]
 
 const Dashboard: FC = () => {
     const [value, onChange] = useState<Value>(new Date())
+    const {
+        userState: { userInfo },
+    } = useUser()
 
     return (
         <div className="relative flex w-full flex-col gap-8 p-8">
-            <p className="text-3xl font-semibold">Bonjour Volatiana !</p>
+            <p className="text-3xl font-semibold">
+                Bonjour {userInfo.firstname} !
+            </p>
             <div className="font-Monolisa text-sm">
                 <p>
                     Voici votre{' '}
