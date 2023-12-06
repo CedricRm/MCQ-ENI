@@ -2,6 +2,7 @@ import { useState } from 'react'
 import {
     getAllTests as getAllTestsServices,
     getTestBySlug as getTestBySlugService,
+    getTestByLevelSlug as getTestByLevelSlugService,
 } from '../../services/test'
 import { processedTest } from '../../utils/interfaces'
 
@@ -40,7 +41,29 @@ const useGetTests = () => {
             }
     }
 
-    return { getAllTests, getTestBySlug, allTests, test, isGettingTests }
+    const getTestByLevelSlug = async (slug: string) => {
+        const authToken = localStorage.getItem('@mcqENI.token')
+
+        if (authToken)
+            try {
+                setIsGettingTests(true)
+                const res = await getTestByLevelSlugService(authToken, slug)
+                setAllTests(res)
+                setIsGettingTests(false)
+            } catch (err) {
+                console.error(err)
+                setIsGettingTests(true)
+            }
+    }
+
+    return {
+        getAllTests,
+        getTestBySlug,
+        getTestByLevelSlug,
+        allTests,
+        test,
+        isGettingTests,
+    }
 }
 
 export default useGetTests

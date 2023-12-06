@@ -15,6 +15,21 @@ export const getTestBySlug = async (authToken: string, slug: string) => {
     return res
 }
 
+export const getTestByLevelSlug = async (
+    authToken: string,
+    levelSlug: string | number
+) => {
+    const res = await axiosInstance(
+        VITE_API_URL,
+        'get',
+        `/tests/levels/${levelSlug}`,
+        {
+            Authorization: 'Bearer ' + authToken,
+        }
+    )
+    return res
+}
+
 export const createTest = async (authToken: string, data: object) => {
     const res = await axiosInstance(
         VITE_API_URL,

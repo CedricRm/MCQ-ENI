@@ -82,6 +82,8 @@ export interface processedTest {
         }
     }
     slug?: string
+    isvisible?: boolean
+    isdone?: boolean
 }
 
 export interface choice {
