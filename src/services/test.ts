@@ -8,6 +8,13 @@ export const getAllTests = async (authToken: string) => {
     return res
 }
 
+export const getTestBySlug = async (authToken: string, slug: string) => {
+    const res = await axiosInstance(VITE_API_URL, 'get', `/tests/${slug}`, {
+        Authorization: 'Bearer ' + authToken,
+    })
+    return res
+}
+
 export const createTest = async (authToken: string, data: object) => {
     const res = await axiosInstance(
         VITE_API_URL,

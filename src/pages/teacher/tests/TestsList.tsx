@@ -1,6 +1,7 @@
 import { FC, useEffect } from 'react'
 import useGetTests from '../../../hooks/test/useGetTests'
 import { processedTest } from '../../../utils/interfaces'
+import { useNavigate } from 'react-router-dom'
 
 interface TestsListInterface {
     handleDeleteTestModal: (test: processedTest) => void
@@ -11,12 +12,17 @@ const TestsList: FC<TestsListInterface> = ({
     handleModifyTestModal,
     handleDeleteTestModal,
 }) => {
-    const { getTests, tests } = useGetTests()
+    const { getAllTests, allTests } = useGetTests()
+    const navigate = useNavigate()
 
     useEffect(() => {
-        getTests()
+        getAllTests()
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
+
+    const handleRedirect = (testSlug: string) => {
+        navigate(testSlug)
+    }
 
     return (
         <div className="relative overflow-x-auto rounded-xl bg-black bg-opacity-50 p-2 backdrop-blur-md">
@@ -45,11 +51,14 @@ const TestsList: FC<TestsListInterface> = ({
                     </tr>
                 </thead>
                 <tbody>
-                    {tests.length > 0 &&
-                        tests.map((test: processedTest) => (
+                    {allTests.length > 0 &&
+                        allTests.map((test: processedTest) => (
                             <tr
-                                className="dark:bg-gray-800 dark:border-gray-700 border-b"
+                                className="dark:bg-gray-800 dark:border-gray-700 cursor-pointer border-b"
                                 key={test.slug}
+                                onClick={() =>
+                                    test.slug && handleRedirect(test.slug)
+                                }
                             >
                                 <th
                                     scope="row"

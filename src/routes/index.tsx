@@ -56,11 +56,30 @@ export default function Router() {
                         },
                         {
                             path: 'tests',
-                            element: (
-                                <AuthGard redirectTo="/" role={ROLE_TEACHER}>
-                                    <TeacherTests />
-                                </AuthGard>
-                            ),
+                            children: [
+                                {
+                                    index: true,
+                                    element: (
+                                        <AuthGard
+                                            redirectTo="/"
+                                            role={ROLE_TEACHER}
+                                        >
+                                            <TeacherTests />
+                                        </AuthGard>
+                                    ),
+                                },
+                                {
+                                    path: ':slug',
+                                    element: (
+                                        <AuthGard
+                                            redirectTo="/"
+                                            role={ROLE_TEACHER}
+                                        >
+                                            <TestCustomization />
+                                        </AuthGard>
+                                    ),
+                                },
+                            ],
                         },
                     ],
                 },
@@ -114,3 +133,6 @@ const Students = Loadable(
 // Teacher
 const Teacher = Loadable(lazy(() => import('../pages/teacher')))
 const TeacherTests = Loadable(lazy(() => import('../pages/teacher/tests')))
+const TestCustomization = Loadable(
+    lazy(() => import('../pages/teacher/tests/customization'))
+)

@@ -83,3 +83,22 @@ export interface processedTest {
     }
     slug?: string
 }
+
+export interface choice {
+    content?: string
+    iscorrect?: boolean
+}
+
+export interface processedChoice {
+    id?: number
+    content?: string
+    iscorrect?: boolean
+}
+
+export interface processedQuestion {
+    content?: string
+    id?: number
+    createdAt?: string
+    test?: processedTest
+    choices?: choice[]
+}
