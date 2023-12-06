@@ -63,9 +63,17 @@ const Index = () => {
                                     </span>{' '}
                                     {slug}
                                 </p>
-                                <p className="font-Gilroy text-3xl ">
-                                    {test.designation}
-                                </p>
+                                <div className="flex items-center gap-4">
+                                    <p className="font-Gilroy text-3xl ">
+                                        {test.designation}
+                                    </p>
+                                    {/* <p className="bg-red px-2 py-1 text-center uppercase">
+                                        NON-VISIBLE
+                                    </p> */}
+                                    <p className="bg-green px-2 py-1 text-center uppercase">
+                                        VISIBLE
+                                    </p>
+                                </div>
                             </div>
                             <div className="shadow-xs absolute right-12 w-52 rounded-xl bg-white bg-opacity-10 p-4 text-[1.15rem]">
                                 <p>{test.levels?.designation}</p>

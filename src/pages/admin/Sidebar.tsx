@@ -58,7 +58,7 @@ const Sidebar: FC = () => {
                 >
                     Etudiants
                 </li>
-                <li
+                {/* <li
                     className={`hover:bg-gray-700 cursor-pointer px-4 py-2 hover:text-red ${
                         pathname === '/admin/tests'
                             ? 'text-red'
@@ -66,7 +66,7 @@ const Sidebar: FC = () => {
                     }`}
                 >
                     Tests
-                </li>
+                </li> */}
             </ul>
             <div
                 className="absolute bottom-0 flex cursor-pointer items-center px-4 py-8 hover:text-red"

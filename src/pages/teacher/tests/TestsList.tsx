@@ -71,7 +71,9 @@ const TestsList: FC<TestsListInterface> = ({
                                     {test.levels?.designation}
                                 </td>
                                 <td className="px-6 py-4">{test.duration}</td>
-                                <td className="px-6 py-4">{test.datetest}</td>
+                                <td className="px-6 py-4">
+                                    {test.datetest?.slice(0, 10)}
+                                </td>
                                 {/* <td className="px-6 py-4">
                                     <p className="bg-red px-2 py-1 text-center uppercase">
                                         ACTIVE
@@ -82,17 +84,19 @@ const TestsList: FC<TestsListInterface> = ({
                                         src="/assets/icons/ic_pen.png"
                                         alt="modify icon"
                                         className="h-4 w-4 cursor-pointer"
-                                        onClick={() =>
+                                        onClick={(e) => {
+                                            e.stopPropagation()
                                             handleModifyTestModal(test)
-                                        }
+                                        }}
                                     />
                                     <img
                                         src="/assets/icons/ic_erazer.png"
                                         alt="modify icon"
                                         className="h-5 w-5 cursor-pointer"
-                                        onClick={() =>
+                                        onClick={(e) => {
+                                            e.stopPropagation()
                                             handleDeleteTestModal(test)
-                                        }
+                                        }}
                                     />
                                 </td>
                             </tr>
