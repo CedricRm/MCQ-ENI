@@ -11,6 +11,9 @@ import { useParams } from 'react-router-dom'
 import useGetTests from '../../../hooks/test/useGetTests'
 import useGetQuestion from '../../../hooks/question/useGetQuestion'
 import useCreateUserTest from '../../../hooks/user-test/useCreateUserTest'
+import useGetUserTest from '../../../hooks/user-test/useGetUserTest'
+import useUser from '../../../hooks/context/useUser'
+import DoneTest from './DoneTest'
 
 const Index: FC = () => {
     const { slug } = useParams()
@@ -20,6 +23,7 @@ const Index: FC = () => {
 
     const steps = allQuestions.length + 1
 
+    const [showDoneTest, setShowDoneTest] = useState(false)
     const [isTestStarted, setIsTestStarted] = useState(false)
     const [isTestFinished, setIsTestFinished] = useState(false)
     const [step, setStep] = useState(-1)
@@ -30,6 +34,12 @@ const Index: FC = () => {
         expiryTimestamp: time,
         onExpire: () => console.warn('onExpire called'),
     })
+
+    const { getUserTestByTestSlug, userTest } = useGetUserTest()
+
+    const {
+        userState: { userInfo },
+    } = useUser()
 
     useEffect(() => {
         if (slug) getTestBySlug(slug)
@@ -91,6 +101,27 @@ const Index: FC = () => {
         setIsTestFinished(!isTestFinished)
     }
 
+    useEffect(() => {
+        if (slug) {
+            getUserTestByTestSlug(slug)
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [slug])
+
+    useEffect(() => {
+        if (userTest.length > 0) {
+            const filteredTestData = userTest.map((test) => {
+                const filteredUsers = test.users.id === userInfo.sub
+                return { ...test, users: filteredUsers }
+            })
+
+            if (filteredTestData.length > 0) {
+                setShowDoneTest(true)
+            }
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [userTest])
+
     return (
         <div className="bg-primaryDark-background text-white">
             <div className="relative h-[100vh] overflow-hidden">
@@ -114,11 +145,16 @@ const Index: FC = () => {
                                 exit={{ opacity: 0 }}
                                 transition={{ duration: 0.5 }}
                             >
-                                {!isTestStarted && !isTestFinished && (
-                                    <Introduction
-                                        loading={isCreatingUserTest}
-                                        handleStartTest={handleStartTest}
-                                    />
+                                {showDoneTest ? (
+                                    <DoneTest />
+                                ) : (
+                                    !isTestStarted &&
+                                    !isTestFinished && (
+                                        <Introduction
+                                            loading={isCreatingUserTest}
+                                            handleStartTest={handleStartTest}
+                                        />
+                                    )
                                 )}
 
                                 {isTestStarted && (

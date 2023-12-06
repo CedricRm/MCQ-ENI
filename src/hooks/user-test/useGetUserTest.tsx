@@ -3,7 +3,8 @@ import { getUserTestByTestSlug as getUserTestByTestSlugService } from '../../ser
 
 const useGetUserTest = () => {
     const [isGettingTests, setIsGettingTests] = useState(false)
-    const [userTest, setUserTest] = useState(true)
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const [userTest, setUserTest] = useState<any>([])
 
     const getUserTestByTestSlug = async (slug: string) => {
         const authToken = localStorage.getItem('@mcqENI.token')
