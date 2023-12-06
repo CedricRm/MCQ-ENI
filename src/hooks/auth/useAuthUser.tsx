@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { LogIn as LogInService } from '../../services/auth'
 import useUser from '../context/useUser'
 import { user } from '../../utils/interfaces'
+import { ROLE_STUDENT, ROLE_TEACHER } from '../../utils/constants'
 
 const useAuthUser = () => {
     const [isLoggingIn, SetIsLogginIn] = useState(false)
@@ -16,9 +17,9 @@ const useAuthUser = () => {
         }
 
         switch (user.role) {
-            case 2:
+            case ROLE_STUDENT:
                 return navigate('/student')
-            case 3:
+            case ROLE_TEACHER:
                 return navigate('/teacher')
         }
     }

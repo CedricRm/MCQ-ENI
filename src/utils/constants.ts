@@ -31,8 +31,8 @@ export const questions = [
 // Roles
 // roles is attributed due to back end specification
 export const ROLE_ADMIN = 1
-export const ROLE_STUDENT = 2
-export const ROLE_TEACHER = 3
+export const ROLE_TEACHER = 2
+export const ROLE_STUDENT = 3
 
 // Levels
 // levels is attributed due to back end specification
@@ -42,4 +42,4 @@ export const LEVEL_L3 = 3
 export const LEVEL_M1 = 4
 export const LEVEL_M2 = 5
 export const LEVEL_admin = 6
-export const LEVEL_teacher = 8
+export const LEVEL_teacher = 7

@@ -21,6 +21,8 @@ const AuthGard = ({ children, redirectTo, role }: AuthGardInterface) => {
                 if (userInfo.role != role) {
                     navigate(redirectTo)
                 }
+                console.log(userInfo)
+                console.log(role)
             } else {
                 navigate(redirectTo)
             }
