@@ -89,6 +89,14 @@ export default function Router() {
                                 },
                             ],
                         },
+                        {
+                            path: 'results',
+                            element: (
+                                <AuthGard redirectTo="/" role={ROLE_TEACHER}>
+                                    <TestResult />
+                                </AuthGard>
+                            ),
+                        },
                     ],
                 },
                 {
@@ -144,3 +152,4 @@ const TeacherTests = Loadable(lazy(() => import('../pages/teacher/tests')))
 const TestCustomization = Loadable(
     lazy(() => import('../pages/teacher/tests/customization'))
 )
+const TestResult = Loadable(lazy(() => import('../pages/teacher/results')))

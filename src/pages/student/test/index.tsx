@@ -14,6 +14,7 @@ import useCreateUserTest from '../../../hooks/user-test/useCreateUserTest'
 import useGetUserTest from '../../../hooks/user-test/useGetUserTest'
 import useUser from '../../../hooks/context/useUser'
 import DoneTest from './DoneTest'
+import useUpdateUserTestState from '../../../hooks/user-test/useUpdateUserTestState'
 
 const Index: FC = () => {
     const { slug } = useParams()
@@ -32,10 +33,11 @@ const Index: FC = () => {
     const [timerConfig, setTimerConfig] = useState({
         autoStart: false,
         expiryTimestamp: time,
-        onExpire: () => console.warn('onExpire called'),
+        onExpire: () => handleInterumptTest(),
     })
 
     const { getUserTestByTestSlug, userTest } = useGetUserTest()
+    const { updateUserTestState } = useUpdateUserTestState()
 
     const {
         userState: { userInfo },
@@ -60,11 +62,12 @@ const Index: FC = () => {
             setTimerConfig({
                 autoStart: false,
                 expiryTimestamp: time,
-                onExpire: () => console.warn('onExpire called'),
+                onExpire: () => handleInterumptTest(),
             })
         } else {
             console.warn('Invalid test.duration:', test.duration)
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [test.duration])
 
     const { seconds, minutes, start, pause } = useTimer(timerConfig)
@@ -99,6 +102,12 @@ const Index: FC = () => {
         // set test to finished
         setIsTestStarted(!isTestStarted)
         setIsTestFinished(!isTestFinished)
+    }
+
+    const handleInterumptTest = async () => {
+        if (test.slug) {
+            if (await updateUserTestState(test.slug)) handleFinishTest()
+        }
     }
 
     useEffect(() => {

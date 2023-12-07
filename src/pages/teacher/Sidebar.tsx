@@ -54,7 +54,7 @@ const Sidebar: FC = () => {
                             ? 'text-red'
                             : 'hover:text-red'
                     }`}
-                    // onClick={() => navigate('/admin/students')}
+                    onClick={() => navigate('/teacher/results')}
                 >
                     Mes résultats
                 </li>
